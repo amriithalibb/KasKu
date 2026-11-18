@@ -67,6 +67,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
@@ -613,7 +614,7 @@ fun TransaksiFormScreen(
                                             )
                                             Spacer(modifier = Modifier.width(6.dp))
                                             Text(
-                                                text = if (lampiranNama.isNotBlank()) lampiranNama else "File Bukti",
+                                                text = lampiranNama.ifBlank { "File Bukti" },
                                                 fontSize = 13.sp,
                                                 fontWeight = FontWeight.SemiBold,
                                                 color = MaterialTheme.colorScheme.onSurface
@@ -755,5 +756,25 @@ fun TransaksiFormScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TransaksiFormScreenPreview() {
+    KasKuTheme {
+        TransaksiFormScreen(
+            mode = "CREATE",
+            initialId = -1,
+            initialJudul = "Nasi Goreng",
+            initialNominal = "25000",
+            initialJenis = "Pengeluaran",
+            initialKategori = "Makan & Minum",
+            initialCatatan = "Makan malam",
+            initialLampiranPath = "",
+            initialLampiranNama = "",
+            onBackClick = {},
+            onSaveClick = { _, _, _, _, _, _, _, _ -> }
+        )
     }
 }

@@ -59,6 +59,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
@@ -109,7 +110,6 @@ class DetailTransaksiActivity : ComponentActivity() {
 
             KasKuTheme(darkTheme = isDarkMode) {
                 DetailTransaksiScreen(
-                    id = id,
                     judul = judul,
                     nominal = nominal,
                     jenis = jenis,
@@ -198,7 +198,6 @@ class DetailTransaksiActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailTransaksiScreen(
-    id: Int,
     judul: String,
     nominal: Long,
     jenis: String,
@@ -408,7 +407,7 @@ fun DetailTransaksiScreen(
                                         )
                                         Spacer(modifier = Modifier.width(10.dp))
                                         Text(
-                                            text = if (lampiranNama.isNotBlank()) lampiranNama else "Dokumen Bukti",
+                                            text = lampiranNama.ifBlank { "Dokumen Bukti" },
                                             fontSize = 13.sp,
                                             fontWeight = FontWeight.SemiBold,
                                             color = MaterialTheme.colorScheme.onSurface
@@ -534,6 +533,37 @@ fun DetailRow(label: String, value: String) {
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.End,
             modifier = Modifier.weight(1.5f)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DetailTransaksiScreenPreview() {
+    KasKuTheme {
+        DetailTransaksiScreen(
+            judul = "Belanja Bulanan",
+            nominal = 2500000L,
+            jenis = "Pengeluaran",
+            kategori = "Belanja",
+            tanggal = "02 Nov 2024, 14:30 WIB",
+            catatan = "Bahan makanan & kebutuhan rumah",
+            lampiranPath = "",
+            lampiranNama = "",
+            onBackClick = {},
+            onEditClick = {},
+            onDeleteConfirm = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DetailRowPreview() {
+    KasKuTheme {
+        DetailRow(
+            label = "Judul Transaksi",
+            value = "Belanja Bulanan"
         )
     }
 }

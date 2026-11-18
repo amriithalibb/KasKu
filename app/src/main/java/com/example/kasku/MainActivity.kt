@@ -71,6 +71,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
@@ -973,6 +974,88 @@ fun TimelineTransaksiCard(
                     }
                 }
             }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    KasKuTheme {
+        MainScreen(
+            transaksiList = listOf(
+                TransaksiEntity(
+                    id = 1,
+                    judul = "Gaji Bulanan",
+                    nominal = 10000000L,
+                    jenis = "Pemasukan",
+                    kategori = "Gaji",
+                    catatan = "Transfer gaji bulan ini",
+                    tanggal = "01 Nov 2024"
+                ),
+                TransaksiEntity(
+                    id = 2,
+                    judul = "Belanja Bulanan",
+                    nominal = 2500000L,
+                    jenis = "Pengeluaran",
+                    kategori = "Belanja",
+                    catatan = "Bahan makanan & kebutuhan rumah",
+                    tanggal = "02 Nov 2024",
+                    lampiranPath = "/sample/path.jpg",
+                    lampiranNama = "nota.jpg"
+                )
+            ),
+            isDarkMode = false,
+            batasAnggaran = 5000000L,
+            onToggleTheme = {},
+            onUpdateBatasAnggaran = {},
+            onExportCsv = {},
+            onAddClick = {},
+            onItemClick = {},
+            onEditClick = {},
+            onDeleteClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TimelineTransaksiCardPreview() {
+    KasKuTheme {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            TimelineTransaksiCard(
+                item = TransaksiEntity(
+                    id = 1,
+                    judul = "Gaji Bulanan",
+                    nominal = 10000000L,
+                    jenis = "Pemasukan",
+                    kategori = "Gaji",
+                    catatan = "Transfer gaji bulan ini",
+                    tanggal = "01 Nov 2024"
+                ),
+                onItemClick = {},
+                onEdit = {},
+                onDelete = {}
+            )
+            TimelineTransaksiCard(
+                item = TransaksiEntity(
+                    id = 2,
+                    judul = "Belanja Bulanan",
+                    nominal = 2500000L,
+                    jenis = "Pengeluaran",
+                    kategori = "Belanja",
+                    catatan = "Bahan makanan & kebutuhan rumah",
+                    tanggal = "02 Nov 2024",
+                    lampiranPath = "/sample/path.jpg",
+                    lampiranNama = "nota.jpg"
+                ),
+                onItemClick = {},
+                onEdit = {},
+                onDelete = {}
+            )
         }
     }
 }
